@@ -58,7 +58,7 @@ export const projects: Project[] = [
     stack: ["HTML5", "CSS3", "Grid", "Responsive"],
     tags: ["Frontend", "Corporate"],
     live: "https://arielpowerltd.com",
-    repo: "https://github.com/SanjitDash758/ariel-power-solutions",
+    repo: "https://github.com/SanjitDash758/arielpowerltd",
     lastUpdated: "2026-08-10",
   },
 ];
