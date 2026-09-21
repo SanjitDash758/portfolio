@@ -1,0 +1,497 @@
+---
+title: "The 7 Types of Memory an AI Agent Needs"
+date: "2026-08-29"
+source: "Substack"
+sourceUrl: "https://dashsanjit.substack.com/p/the-7-types-of-memory-an-ai-agent"
+tags: ["AI Agents", "Systems", "Memory"]
+summary: "AI agents don't just need context — they need memory. A systems-engineering taxonomy of seven memory types."
+---
+
+The 7 Types of Memory an AI Agent Needs
+AI Agents Don’t Just Need Context. They Need Memory.
+
+AI agents are often described as systems that can reason, use tools, and take actions.
+
+But there is another capability that determines how useful an agent becomes over time:
+
+Memory.
+
+A stateless LLM can answer questions.
+
+An agent with memory can build continuity.
+
+It can remember what happened, retain important facts, reuse successful procedures, learn user preferences, and retrieve information from external systems when necessary.
+
+But “agent memory” is often discussed as if it were one thing.
+
+It isn’t.
+
+From a systems-engineering perspective, it is more useful to think about memory as several different mechanisms with different purposes, latency requirements, storage mechanisms, and failure modes.
+
+A practical taxonomy is seven types of agent memory.
+
+1. Working Memory
+   Working memory is the information an agent is actively using right now.
+
+For an LLM-based agent, this is closely related to the current context.
+
+For example, suppose an agent is debugging an API.
+
+Its working memory might contain:
+
+the current error
+
+relevant source code
+
+recent tool outputs
+
+database results
+
+the current hypothesis
+
+the next action it intends to take
+
+This information has very high access frequency but usually very short lifetime.
+
+You can think of it like RAM in a computer.
+
+Fast.
+
+Temporary.
+
+Limited.
+
+The key constraint is the context window.
+
+The agent cannot keep everything in working memory indefinitely.
+
+So the system needs mechanisms for:
+
+selection → compression → eviction → retrieval.
+
+2. Short-Term Memory
+   Short-term memory maintains information across the immediate interaction.
+
+For example:
+
+User: Build me a FastAPI service.
+
+Agent: What database?
+
+User: PostgreSQL.
+
+Agent: What authentication mechanism?
+
+User: JWT.
+
+The agent needs to preserve these decisions while continuing the task.
+
+Short-term memory is therefore about conversation and task continuity.
+
+It may live in:
+
+conversation state
+
+session storage
+
+Redis
+
+an agent state store
+
+a workflow engine
+
+Its lifetime might be minutes or hours rather than milliseconds.
+
+The distinction between working and short-term memory is not universally standardized.
+
+A useful engineering distinction is:
+
+Working memory = what is actively being processed.
+
+Short-term memory = what should remain available during the current task/session.
+
+3. Episodic Memory
+   Episodic memory stores specific events or experiences.
+
+Instead of remembering a general fact, the agent remembers something that happened.
+
+For example:
+
+“On August 20, the deployment failed because the migration ran before the database was ready.”
+
+Or:
+
+“The previous customer interaction ended with a refund being issued.”
+
+This is valuable because many real-world tasks depend on history.
+
+An episodic record might contain:
+
+Event:
+Deployment failure
+
+Time:
+2026-08-20
+
+Context:
+Production deployment
+
+Cause:
+Database migration executed too early
+
+Outcome:
+Rollback
+
+Resolution:
+Added migration readiness check
+Episodic memory allows an agent to reason from experience, not just static knowledge.
+
+4. Semantic Memory
+   Semantic memory contains facts and concepts.
+
+For example:
+
+PostgreSQL is a relational database.
+
+Redis is commonly used for caching.
+
+This service uses PostgreSQL 16.
+
+Unlike episodic memory, semantic memory isn’t necessarily tied to a particular event.
+
+It represents what the system believes to be true.
+
+Common implementations include:
+
+relational databases
+
+document databases
+
+vector databases
+
+knowledge graphs
+
+structured knowledge stores
+
+A useful mental model:
+
+Episodic memory answers: “What happened?”
+
+Semantic memory answers: “What is true?”
+
+5. Procedural Memory
+   Procedural memory represents how to perform a task.
+
+Humans don’t only remember facts.
+
+We remember procedures.
+
+An AI agent needs the same capability.
+
+For example:
+
+Deploy service:
+
+1. Run tests
+2. Build container
+3. Push image
+4. Run database migration
+5. Deploy application
+6. Verify health checks
+7. Monitor logs
+   This isn’t simply knowledge about deployment.
+
+It is knowledge about performing deployment.
+
+Procedural memory can appear as:
+
+workflows
+
+tool-use policies
+
+reusable plans
+
+playbooks
+
+code
+
+function/tool sequences
+
+learned action patterns
+
+This is particularly important for autonomous agents.
+
+An agent that knows what PostgreSQL is isn’t necessarily capable of operating PostgreSQL.
+
+6. Long-Term Memory
+   Long-term memory contains information that should survive beyond the current session.
+
+For example:
+
+The user prefers Python.
+
+The user’s project uses FastAPI.
+
+This system has a PostgreSQL database.
+
+The user previously rejected a particular architecture.
+
+The important property isn’t simply size.
+
+It is persistence.
+
+Long-term memory requires decisions about:
+
+storage
+
+retrieval
+
+updates
+
+versioning
+
+expiration
+
+privacy
+
+deletion
+
+conflict resolution
+
+This starts to look much more like a database engineering problem.
+
+And that’s important.
+
+A production agent should not treat long-term memory as an infinite text file.
+
+It needs memory management policies.
+
+7. External / Environmental Memory
+   Perhaps the most important category is memory that doesn’t actually live inside the agent.
+
+The agent can retrieve information from its environment.
+
+For example:
+
+Database
+
+SELECT \* FROM customers;
+File system
+
+/config/production.yaml
+API
+
+GET /orders/12345
+Knowledge graph
+
+Service A → depends_on → PostgreSQL
+Vector store
+
+Retrieve documents semantically related to the query.
+Logs
+
+Search production events from the last 30 minutes.
+This is effectively the agent’s external memory system.
+
+And from a distributed-systems perspective, this category is extremely interesting.
+
+Because now the agent must deal with:
+
+network latency
+
+availability
+
+consistency
+
+stale data
+
+retries
+
+caching
+
+access control
+
+rate limits
+
+serialization
+
+failures
+
+The agent isn’t simply “remembering.”
+
+It is retrieving state from a distributed environment.
+
+The Computer Architecture Analogy
+One of the easiest ways to understand agent memory is to compare it with computer architecture.
+
+Agent Memory Rough Systems Analogy
+Working memory CPU registers / active RAM
+Short-term memory Process/session state
+Episodic memory Event/history store
+Semantic memory Database / knowledge store
+Procedural memory Programs/workflows
+Long-term memory Persistent storage
+External memory
+
+Distributed systems/environment
+
+The analogy isn’t perfect.
+
+But it highlights something important:
+
+Memory isn’t a single storage layer.
+
+Modern computers use a hierarchy because different storage mechanisms have different characteristics.
+
+The same principle applies to agents.
+
+The Real Engineering Problem
+The difficult part isn’t giving an agent more memory.
+
+The difficult part is designing the memory lifecycle.
+
+A production agent needs answers to questions like:
+
+What should be stored?
+Not every interaction deserves permanent storage.
+
+Where should it be stored?
+A temporary task state shouldn’t necessarily go into a long-term database.
+
+When should it be retrieved?
+Retrieval has a latency and computational cost.
+
+How should it be retrieved?
+Keyword search, semantic search, structured queries, graph traversal, or some combination?
+
+When should memory expire?
+Some information becomes irrelevant.
+
+What happens when memories conflict?
+Suppose the agent remembers:
+
+“The user prefers PostgreSQL.”
+
+But a newer interaction says:
+
+“We’re migrating to MySQL.”
+
+Which memory wins?
+
+Who is allowed to access the memory?
+An agent’s memory can contain sensitive information.
+
+Access control therefore becomes part of memory architecture.
+
+Memory Is an Architecture Problem
+This is where agent engineering becomes much more interesting.
+
+A toy agent can have:
+
+LLM → prompt → response
+
+A production agent may look more like:
+
+User
+
+↓
+
+Agent / Orchestrator
+
+↓
+
+Working State
+
+↓
+
+Memory Retrieval
+
+↓
+
+Semantic / Episodic / Procedural Stores
+
+↓
+
+Tools & External Systems
+
+↓
+
+Databases / APIs / Files / Services
+
+↓
+
+New Observations
+
+↓
+
+Memory Update
+
+The agent is effectively operating inside a stateful distributed system.
+
+And that creates familiar engineering problems:
+
+Latency
+
+How quickly can memory be retrieved?
+
+Consistency
+
+Is the retrieved memory current?
+
+Durability
+
+Will important information survive a restart?
+
+Scalability
+
+Can millions of users maintain independent memories?
+
+Cost
+
+How much does retrieval and storage cost?
+
+Reliability
+
+What happens when the memory service is unavailable?
+
+Security
+
+Who can read or modify an agent’s memories?
+
+The Most Important Principle
+The goal isn’t:
+
+Give the agent unlimited memory.
+
+The goal is:
+
+Give the agent the right memory at the right time.
+
+Good agent memory is therefore less about storing everything and more about information lifecycle management.
+
+Store selectively.
+
+Retrieve intelligently.
+
+Update carefully.
+
+Expire aggressively when appropriate.
+
+And never assume that a retrieved memory is automatically correct.
+
+Final Thought
+The next generation of AI agents will not be defined only by better models.
+
+They will also be defined by better state management.
+
+Models provide reasoning.
+
+Tools provide capabilities.
+
+Memory provides continuity.
+
+Infrastructure provides reliability.
+
+And architecture determines how all four work together.
+
+That is why building reliable AI agents increasingly looks less like writing a clever prompt—and more like designing a distributed system.

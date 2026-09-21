@@ -1,0 +1,26 @@
+---
+title: "CPU utilization, memory usage, and database query latency"
+date: "2026-08-29"
+source: "Substack"
+sourceUrl: "https://dashsanjit.substack.com/p/the-7-types-of-memory-an-ai-agent"
+tags: ["AI Agents", "Systems", "Memory"]
+summary: "We spend a lot of time looking at the obvious metrics: CPU utilization, memory usage, and database query latency."
+---
+
+We spend a lot of time looking at the obvious metrics: CPU utilization, memory usage, and database query latency.
+But there’s an invisible killer in distributed environments that rarely shows up on standard dashboards until it’s too late.
+It’s not slow code. It’s waiting.
+I don't mean the user waiting for a page to load. I mean the system itself waiting on its own components:
+
+1. A goroutine stalled, waiting for a mutex lock to release.
+2. A thread blocked, waiting on disk I/O.
+3. An inbound request sitting frozen in a connection pool queue.
+4. A microservice idling because a downstream dependency is "almost done."
+
+Most production systems don't fall over because a single mathematical operation takes too long. They fail because waiting starts waiting on more waiting.
+
+It’s a silent, compounding pile-up. Queues bloat, clients trigger retries, timeouts cascade, and suddenly your connection pools are completely exhausted. On your high-level dashboard, everything looks perfectly healthy—right up until the moment the entire system locks up.
+
+Optimizing a specific function to save 5 milliseconds is satisfying, isolated work. But designing an architecture that minimizes asynchronous gridlock?
+
+That requires a completely different mental model.
