@@ -34,7 +34,7 @@ export const projects: Project[] = [
     stack: ["Next.js", "WooCommerce", "Supabase", "Telegram API"],
     tags: ["E-Commerce", "Full-Stack", "Automation"],
     live: "https://zenvyfashion.com",
-    repo: "https://github.com/dashpranta145-design/zenvy-fashion",
+    repo: "https://github.com/SanjitDash758/zenvy-fashion",
     lastUpdated: "2026-09-01",
   },
   {
@@ -46,7 +46,7 @@ export const projects: Project[] = [
     stack: ["React 19", "Vite", "TypeScript", "Node.js", "Express"],
     tags: ["AI", "Chatbot", "Full-Stack"],
     live: "https://codesell-academy.com",
-    repo: "https://github.com/dashpranta145-design/codesell-academy",
+    repo: "https://github.com/SanjitDash758/codesell-academy",
     lastUpdated: "2026-08-20",
   },
   {
@@ -58,7 +58,7 @@ export const projects: Project[] = [
     stack: ["HTML5", "CSS3", "Grid", "Responsive"],
     tags: ["Frontend", "Corporate"],
     live: "https://arielpowerltd.com",
-    repo: "https://github.com/dashpranta145-design/ariel-power-solutions",
+    repo: "https://github.com/SanjitDash758/ariel-power-solutions",
     lastUpdated: "2026-08-10",
   },
 ];
