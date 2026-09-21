@@ -2,7 +2,7 @@
 
 Personal portfolio for Sanjit Dash — backend engineer working with Python, FastAPI, systems, and AI agents.
 
-**Live:** [sanjit-dash.vercel.app](https://sanjit-dash.vercel.app)
+**Live:** [mesanjit.vercel.app](https://mesanjit.vercel.app)
 
 ---
 
