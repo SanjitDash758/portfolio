@@ -91,7 +91,7 @@ export default async function PostPage({
   if (!post) notFound();
 
   const toc = extractToc(post.content);
-  const content = withHeadingIds(post.content);
+  const content = post.content;
 
   return (
     <main className="mx-auto max-w-6xl px-6 pt-24 pb-24">
