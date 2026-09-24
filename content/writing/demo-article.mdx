@@ -1,0 +1,51 @@
+---
+title: "Demo — Designing a Backend Before Writing Code"
+subtitle: "Why the most expensive mistakes in software happen before the first commit"
+date: "2026-09-24"
+source: "Substack"
+sourceUrl: "https://dashsanjit.substack.com"
+tags: ["Systems", "Architecture", "Backend"]
+summary: "A walk-through of how I approach the design phase: what to decide before opening an editor, which constraints matter, and why writing code too early usually costs more than it saves."
+readingTime: "5 min read"
+---
+
+Most of the difficulty in backend engineering is not in writing the code. It's in deciding what the code should do, and what it should refuse to do.
+
+This post is a demo of the new layout. Replace this body with your real content. The structure below shows how the H2 headings become anchored sections in the sidebar.
+
+## Why design first
+
+When you start typing before you've understood the problem, you end up solving the wrong problem — twice. Once when you build it, again when you discover the mismatch.
+
+Design is not about drawing diagrams. It's about making decisions explicit so you can disagree with them.
+
+The three questions I always answer first:
+
+- **What is the actual constraint?** Latency, cost, team size, or something else?
+- **What breaks first?** A system that handles the common case well but fails catastrophically on edges is worse than one that fails gracefully everywhere.
+- **What can I remove?** Every dependency is a liability. Every abstraction costs something.
+
+## Boundaries before features
+
+The second thing I do is draw the boundaries: where does state live, who owns it, and how does it move?
+
+A useful exercise: describe the system as data flowing between stores and services. If you can't, you don't understand it yet.
+
+Client ──► API ──► Database
+│
+└─► Queue ──► Worker ──► Database
+
+
+Once the data flow is clear, the API surface almost writes itself. If it doesn't, the design is wrong, not the surface.
+
+### A note on abstraction
+
+Abstractions are useful when they hide a detail you don't need and expose one you do. They're harmful when they hide a detail you *do* need.
+
+> The best abstraction is the one you can throw away without rewriting everything around it.
+
+## Closing
+
+Design is cheap. Redesign is expensive. That asymmetry is the entire argument for spending a few hours thinking before you open an editor.
+
+Replace this content with your real post.
