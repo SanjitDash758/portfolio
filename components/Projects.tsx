@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { projects, Project } from "@/lib/content";
-import { ExternalLink, ArrowRight } from "lucide-react";
+import { ExternalLink, ArrowRight, BookOpen } from "lucide-react";
 import { Github } from "./BrandIcons";
 
 const statusStyles: Record<Project["status"], string> = {
@@ -28,11 +28,11 @@ export default function Projects() {
             <span className="text-accent">$</span> ls projects/
           </div>
           <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-3xl">
-            Things I've shipped.
+            Things I&apos;ve shipped.
           </h2>
           <p className="mt-2 max-w-xl text-sm text-fg/70">
             Real products, real users, real constraints. Each one taught me
-            something the docs couldn't.
+            something the docs couldn&apos;t.
           </p>
         </div>
         <div className="hidden text-[10px] text-muted md:block">
@@ -52,6 +52,7 @@ export default function Projects() {
         <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-accent/10 opacity-0 blur-3xl transition-opacity group-hover:opacity-100" />
 
         <div className="relative grid gap-6 md:grid-cols-[1.3fr_1fr]">
+          {/* Left column: meta, title, blurb, links */}
           <div>
             <div className="flex items-center gap-3 text-[10px]">
               <span className="text-muted">01</span>
@@ -79,17 +80,17 @@ export default function Projects() {
                   rel="noreferrer"
                   className="inline-flex items-center gap-1.5 rounded-md border border-accent/40 bg-accent/10 px-3 py-1.5 text-accent transition-colors hover:bg-accent/20"
                 >
-                  <ExternalLink size={12} /> Visit live site
+                  <ExternalLink size={12} /> Live API
                 </a>
               )}
               {featured.repo && (
                 <a
-                  href={featured.repo}
+                  href={`${featured.repo}#readme`}
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-1.5 rounded-md border border-border bg-panel px-3 py-1.5 text-muted transition-colors hover:border-accent/40 hover:text-fg"
                 >
-                  <Github size={12} /> View code
+                  <BookOpen size={12} /> Case study
                 </a>
               )}
             </div>
@@ -156,7 +157,7 @@ export default function Projects() {
               <span className="ml-auto text-muted">{p.lastUpdated}</span>
             </div>
 
-            <h3 className="mt-5 text-lg font-semibold tracking-tight leading-snug">
+            <h3 className="mt-5 text-lg font-semibold leading-snug tracking-tight">
               {p.title}
             </h3>
             <p className="mt-3 flex-1 text-sm leading-relaxed text-fg/70">

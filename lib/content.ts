@@ -26,6 +26,18 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    id: "webhook-handler",
+    title: "Webhook Handler — Idempotent, Auditable, Recoverable",
+    status: "live",
+    blurb:
+      "A production-grade webhook processor handling the three failure modes every integration hits: duplicates, silent failures, and forged events. Signature verification, async processing, exponential backoff retries, a dead-letter queue, Prometheus metrics, and a self-healing reconciliation sweep — with a real-time dashboard driven by a WebSocket pipeline feed. Deployed live on Render; seven production integration bugs found and fixed during the first deployment.",
+    stack: ["FastAPI", "Celery", "PostgreSQL", "Redis", "Docker", "Prometheus"],
+    tags: ["Backend", "Systems", "Reliability"],
+    live: "https://webhook-backend-2tdx.onrender.com/docs",
+    repo: "https://github.com/SanjitDash758/webhook-handler",
+    lastUpdated: "2026-10-05",
+  },
+  {
     id: "zenvy",
     title: "Zenvy Fashion — Baby Saree E-Commerce",
     status: "live",
