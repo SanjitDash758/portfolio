@@ -57,3 +57,26 @@ main[id] {
     transition: none !important;
   }
 }
+/* Seamless infinite marquee for the tech stack */
+@keyframes tech-stack-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.tech-stack-track {
+  animation-name: tech-stack-scroll;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .tech-stack-track {
+    animation: none;
+  }
+}
